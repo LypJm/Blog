@@ -3,12 +3,17 @@ from django.contrib import admin
 from myblog.base_admin import BaseAdmin
 from django.urls import reverse
 from django.utils.html import format_html
+from django.contrib.admin.models import LogEntry
 
 from .models import Post, Category, Tag
 from .adminforms import PostAdminForm
 from myblog.custom_site import custom_site
 
 # Register your models here.
+#查看日志的页面
+@admin.register(LogEntry,site=custom_site)
+class LogAdmin(admin.ModelAdmin):
+    list_display = ["object_repr",'object_id','action_flag','user','change_message']
 
 # 在同一页面编辑关联数据
 class PostInline(admin.TabularInline):
@@ -94,4 +99,4 @@ class CategoryAdmin(BaseAdmin):
 @admin.register(Tag, site=custom_site)
 class TagAdmin(BaseAdmin):
     list_display = ('name', 'status', 'owner', 'created_time')
-    fields = ('name', 'status', 'owner')
+    fields = ('name', 'status')

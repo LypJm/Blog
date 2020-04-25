@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章</title>
+</head>
+<body>
+    {% if tag %}
+        <h3>标签：{{ tag.name }}</h3>
+    {% endif %}
+    {% if category %}
+        <h3>类别：{{ category.name }}</h3>
+    {% endif %}
+    <ul>
+        {% for post in post_list %}
+            <li>
+                <a href="{% url 'post' post_id=post.id %}">{{ post.title }}</a>
+            <div>
+                <span>作者：{{ post.owner.username }}</span>
+                <span>分类：{{ post.category.name }}</span>
+            </div>
+            <p>{{ post.decription }}</p>
+            </li>
+        {% endfor %}
+
+    </ul>
+</body>
+</html>

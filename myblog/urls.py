@@ -15,8 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from blog.views import post_detail, post_list
+from config.views import link
 from .custom_site import custom_site
+
 urlpatterns = [
+    path('', post_list, name="index"),
+    path('category/<category_id>/', post_list, name="category"),
+    path('tag/<tag_id>/', post_list, name="tag"),
+    path('post/<post_id>/', post_detail, name="post"),
+    path('link/', link, name="link"),
+
     # path('superadmin/',admin.site.urls),
     path('admin/', custom_site.urls),
 ]
