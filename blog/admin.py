@@ -1,12 +1,20 @@
 # coding=utf-8
 from django.contrib import admin
+from myblog.base_admin import BaseAdmin
 from django.urls import reverse
 from django.utils.html import format_html
 
 from .models import Post, Category, Tag
-
+from .adminforms import PostAdminForm
+from myblog.custom_site import custom_site
 
 # Register your models here.
+
+# 在同一页面编辑关联数据
+class PostInline(admin.TabularInline):
+    fields = ('title', 'description', 'owner')
+    extra = 1
+    model = Post
 
 class CategoryOwnerFilter(admin.SimpleListFilter):
     title = '分类过滤器'
@@ -22,8 +30,9 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
         return queryset
 
 
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+@admin.register(Post, site=custom_site)
+class PostAdmin(BaseAdmin):
+    form = PostAdminForm
     list_display = ('title', 'category', 'owner', 'status', 'created_time', 'operator')
     list_display_links = []
     list_filter = [CategoryOwnerFilter]
@@ -59,17 +68,10 @@ class PostAdmin(admin.ModelAdmin):
     def operator(self, obj):
         return format_html(
             '<a href="{}">编辑</a>',
-            reverse('admin:blog_post_change', args=(obj.id,))  # 转到编辑页面
+            reverse('cus_admin:blog_post_change', args=(obj.id,))  # 转到编辑页面
         )
 
     operator.short_description = '操作'
-
-    def get_queryset(self, request):
-        return super(PostAdmin, self).get_queryset(request).filter(owner=request.user)
-
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(PostAdmin, self).save_model(request, obj, form, change)
 
     class Media:  # 自定义 css样式 ，加载静态资源
         css = {
@@ -78,32 +80,18 @@ class PostAdmin(admin.ModelAdmin):
         js = ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js',)
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+@admin.register(Category, site=custom_site)
+class CategoryAdmin(BaseAdmin):
     list_display = ('name', 'status', 'owner', 'is_nav', 'created_time', 'post_count')
-    fields = ('name', 'status', 'is_nav', 'owner')
+    fields = ('name', 'status', 'is_nav')
+    inlines = [PostInline, ]
 
     def post_count(self, obj):  # 自定函数，固定的参数，当前行对象obj
         return obj.post_set.count()
 
     post_count.short_description = '文章数量'
 
-    def get_queryset(self, request):
-        return super(CategoryAdmin, self).get_queryset(request).filter(owner=request.user)
-
-    def save_model(self, request, obj, form, change):  # 重写save_model方法，将作者设为登录用户
-        obj.owner = request.user
-        return super(CategoryAdmin, self).save_model(request, obj, form, change)
-
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+@admin.register(Tag, site=custom_site)
+class TagAdmin(BaseAdmin):
     list_display = ('name', 'status', 'owner', 'created_time')
     fields = ('name', 'status', 'owner')
-
-    def get_queryset(self, request):
-        return super(TagAdmin, self).get_queryset(request).filter(owner=request.user)
-
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(TagAdmin, self).save_model(request, obj, form, change)

@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from .custom_site import custom_site
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('superadmin/',admin.site.urls),
+    path('admin/', custom_site.urls),
 ]
