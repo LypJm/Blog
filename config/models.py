@@ -23,6 +23,9 @@ class SideBar(models.Model):
     created_time=models.DateTimeField(auto_now_add=True,verbose_name='创建时间')
     owner=models.ForeignKey(User,on_delete=models.CASCADE,verbose_name='作者')
 
+    @classmethod
+    def get_all(cls):
+        return cls.objects.filter(status=SideBar.STATUS_SHOW)
     def __str__(self):
         return self.title
     class Meta:

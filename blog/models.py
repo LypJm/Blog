@@ -17,6 +17,21 @@ class Category(models.Model):
     is_nav = models.BooleanField(default=False, verbose_name='是否为导航')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
 
+    @classmethod
+    def get_navs(cls):
+        categories=Category.objects.filter(status=cls.STATUS_NORMAL)
+        nav_categories=[]
+        normal_categories=[]
+        for cate in categories:
+            if cate.is_nav:
+                nav_categories.append(cate)
+            else:
+                normal_categories.append(cate)
+        return {
+            'nav':nav_categories,
+            'normal':normal_categories
+        }
+
     def __str__(self):
         return self.name
     class Meta:
@@ -61,6 +76,31 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name='标签')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
 
+    @staticmethod
+    def get_by_category(category_id):
+        try:
+            category=Category.objects.get(id=category_id)
+        except Category.DoesNotExist:
+            category=None
+            post_list=[]
+        else:
+            post_list=category.post_set.filter(status=Post.STATUS_NORMAL).select_related('owner','category')
+        return post_list,category
+
+    @staticmethod
+    def get_by_tag(tag_id):
+        try:
+            tag=Tag.objects.get(id=tag_id)
+        except Tag.DoesNotExist:
+            tag=None
+            post_list=[]
+        else:
+            post_list=tag.post_set.filter(status=Post.STATUS_NORMAL).select_related('owner','category')
+        return  post_list,tag
+    @classmethod
+    def latest_posts(cls):
+        queryset=cls.objects.filter(status=Post.STATUS_NORMAL)
+        return queryset
     def __str__(self):
         return self.title
     class Meta:

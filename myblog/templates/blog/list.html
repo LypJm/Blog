@@ -5,6 +5,14 @@
     <title>文章</title>
 </head>
 <body>
+<div>
+    顶部分类
+    {% for cate in nav %}
+        <a href="/category/{{ cate.id }}">{{ cate.name }}</a>
+
+    {% endfor %}
+
+</div>
     {% if tag %}
         <h3>标签：{{ tag.name }}</h3>
     {% endif %}
@@ -24,5 +32,17 @@
         {% endfor %}
 
     </ul>
+<div>
+    底部分类
+    <a href="/category/{{ cate.id }}">{{ cate.name }}</a>
+</div>
+<div>
+    侧边栏
+    {% for side in sidebar %}
+        <h4>{{ side.title }}</h4>
+        {{ side.content }}
+    {% endfor %}
+
+</div>
 </body>
 </html>

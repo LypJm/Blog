@@ -16,7 +16,14 @@
         {{ post.content }}
     </p>
 {% endif %}
+<div>
+    侧边栏
+    {% for side in sidebar %}
+        <h4>{{ side.title }}</h4>
+        {{ side.content }}
+    {% endfor %}
 
+</div>
 
 </body>
 </html>
