@@ -76,6 +76,16 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name='标签')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
 
+    pv=models.PositiveIntegerField(default=1)
+    uv=models.PositiveIntegerField(default=1)
+    @classmethod
+    def hot_post(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv').only('title','id')
+    @classmethod
+    def latest_posts(cls):
+        queryset=cls.objects.filter(status=Post.STATUS_NORMAL)
+        return queryset
+
     @staticmethod
     def get_by_category(category_id):
         try:
@@ -97,10 +107,7 @@ class Post(models.Model):
         else:
             post_list=tag.post_set.filter(status=Post.STATUS_NORMAL).select_related('owner','category')
         return  post_list,tag
-    @classmethod
-    def latest_posts(cls):
-        queryset=cls.objects.filter(status=Post.STATUS_NORMAL)
-        return queryset
+
     def __str__(self):
         return self.title
     class Meta:

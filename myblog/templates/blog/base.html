@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}首页{% endblock %}-L博客系统</title>
+</head>
+<body>
+<div>
+    顶部分类
+    {% for cate in nav %}
+        <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
+
+    {% endfor %}
+</div>
+{% block main %}
+{% endblock %}
+<div>
+    底部分类
+    <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
+</div>
+<div>
+    侧边栏
+    {% for side in sidebar %}
+        <h4>{{ side.title }}</h4>
+        {{ side.content_html }}
+    {% endfor %}
+</div>
+</body>
+</html>

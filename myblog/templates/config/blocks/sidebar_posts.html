@@ -1,0 +1,6 @@
+<ul>
+    {% for post in posts %}
+        <li><a href="{% url 'post' post.id %}">{{ post.title }}</a></li>
+    {% endfor %}
+
+</ul>
