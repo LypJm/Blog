@@ -38,7 +38,7 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
 @admin.register(Post, site=custom_site)
 class PostAdmin(BaseAdmin):
     form = PostAdminForm
-    list_display = ('title', 'category', 'owner', 'status', 'created_time', 'operator')
+    list_display = ('title', 'category' ,'owner', 'status', 'created_time', 'operator')
     list_display_links = []
     list_filter = [CategoryOwnerFilter]
     search_fields = ['title', 'category__name']
@@ -64,8 +64,8 @@ class PostAdmin(BaseAdmin):
         ('内容', {
             'fields': ('description', 'content')
         }),
-        ('额外信息', {
-            'classes': ('collapse',),  # CSS样式 ，折叠
+        ('标签', {
+            # 'classes': ('collapse',),  # CSS样式 ，折叠
             'fields': ('tags',)
         })
     )
