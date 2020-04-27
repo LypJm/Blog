@@ -53,10 +53,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'myblog.urls'
 
+THEMES='bootstrap'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'myblog/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'themes',THEMES,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

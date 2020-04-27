@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}首页{% endblock %}-L博客系统</title>
+    <title>{% block title %}{% endblock %}-L博客系统</title>
 </head>
 <body>
 <div>
     顶部分类
-    {% for cate in nav %}
-        <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
-
+    {% for na in nav %}
+        <a href="{% url 'category' na.id %}">{{ na.name }}</a>
     {% endfor %}
 </div>
 {% block main %}
 {% endblock %}
 <div>
     底部分类
-    <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
+    {% for nor in normal %}
+        <a href="{% url 'category' nor.id %}">{{ nor.name }}</a>
+    {% endfor %}
 </div>
 <div>
     侧边栏

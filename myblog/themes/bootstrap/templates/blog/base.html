@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}-L博客系统</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css">
+    <style>
+        .post {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container head">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">首页</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% for na in nav %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'category' na.id %}">{{ na.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="get">
+                <input type="search" class="form-control mr-sm-2" placeholder="search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">搜索</button>
+            </form>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <h1 class="display-4">L-Blog</h1>
+        <p class="lead">基于Django的多人博客系统</p>
+    </div>
+</div>
+<div class="container main">
+    <div class="row">
+        <div class="col-9 post-list">
+            {% block main %}
+            {% endblock %}
+        </div>
+        <div class="col-3">
+            {% block sidebar %}
+                {% for side in sidebar %}
+                    <h4 class="card-title">{{ side.title }}</h4>
+                    <p>{{ side.content_html }}</p>
+                {% endfor %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<footer class="footer"></footer>
+{% block footer %}
+    <div class="container">
+        <hr/>
+        <nav class="nav category">
+            {% for nor in normal %}
+                <a href="{% url 'category' nor.id %}" class="nav-link">{{ nor.name }}</a>
+            {% endfor %}
+        </nav>
+    </div>
+    <div class="container power">
+        <span class="text-muted">Power by LYP</span>
+    </div>
+{% endblock %}
+</body>
+</html>
