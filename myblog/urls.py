@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import post_detail, post_list,IndexView,CategoryView,TagView,PostDetailView
+from blog.views import post_detail, post_list,IndexView,CategoryView,TagView,PostDetailView,SearchView,AuthorView
 from config.views import link
 from .custom_site import custom_site
 
@@ -25,6 +25,8 @@ urlpatterns = [
     path('tag/<tag_id>/', TagView.as_view(), name="tag"),
     path('post/<post_id>/', PostDetailView.as_view(), name="post"),
     path('link/', link, name="link"),
+    path('search/',SearchView.as_view(),name='search'),
+    path('author/<author_id>/',AuthorView.as_view(),name='author'),
     # path('superadmin/',admin.site.urls),
     path('admin/', custom_site.urls),
 ]

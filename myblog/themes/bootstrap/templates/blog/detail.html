@@ -6,7 +6,7 @@
     {% if post %}
         <h1 class="card-title">{{ post.title }}</h1>
         <div class="card-body">
-            <span class="card-link">作者：<a href="#">{{ post.owner.username }}</a></span>
+            <span class="card-link">作者：<a href="{% url 'author' author_id=post.owner.id %}">{{ post.owner.username }}</a></span>
             <span class="card-link">分类：<a href="{% url 'category' category_id=post.category.id %}">{{ post.category.name }}</a></span>
             <hr/>
             <p class="card-text">{{ post.content }}</p>
