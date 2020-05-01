@@ -21,13 +21,11 @@ class CommonViewMixin:
         print(context)
         return context
 
-
 class IndexView(CommonViewMixin, ListView):
     queryset = Post.latest_posts()
     paginate_by = 3
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
-
 
 class CategoryView(IndexView):
     def get_context_data(self, **kwargs):
@@ -43,7 +41,6 @@ class CategoryView(IndexView):
         queryset = super().get_queryset()
         category_id = self.kwargs.get('category_id')
         return queryset.filter(category_id=category_id)
-
 
 class TagView(IndexView):
     def get_context_data(self, **kwargs):
