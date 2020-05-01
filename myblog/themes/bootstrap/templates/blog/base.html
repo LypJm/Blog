@@ -24,7 +24,8 @@
                 {% endfor %}
             </ul>
             <form class="form-inline my-2 my-lg-0" action="/search/" method="get">
-                <input type="search" class="form-control mr-sm-2" placeholder="search" aria-label="Search" value="{{ keyword }}">
+                <input type="search" class="form-control mr-sm-2" placeholder="search" aria-label="Search"
+                       value="{{ keyword }}">
                 <button class="btn btn-outline-success" type="submit">搜索</button>
             </form>
         </div>
@@ -41,12 +42,30 @@
             {% endblock %}
         </div>
         <div class="col-3">
-            {% block sidebar %}
-                {% for side in sidebar %}
-                    <h4 class="card-title">{{ side.title }}</h4>
-                    <p>{{ side.content_html }}</p>
-                {% endfor %}
-            {% endblock %}
+            <div class="card sidebar">
+                <div class="card-body">
+                <h4 class="card-title">侧边栏</h4>
+                    {% block sidebar %}
+                        {% for side in sidebar %}
+                            <h6 class="card-title">{{ side.title }}</h6>
+                            <p>{{ side.content_html }}</p>
+                        {% endfor %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="card link">
+                <div class="card-body">
+                <h4 class="card-title"><a href="{% url 'link' %}">友情链接</a></h4>
+{#              <h4 class="card-title">友情链接</h4>#}
+                    {% block link %}
+                        {% for link in link_list %}
+                            <h6 class="card-title">{{ link.title }}</h6>
+                            <p><a href="{{ link.href }}">{{ link.href }}</a></p>
+                        {% endfor %}
+                    {% endblock %}
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -60,7 +79,7 @@
             {% endfor %}
         </nav>
     </div>
-    <div class="container power" >
+    <div class="container power">
         <span class="text-muted">Power by LYP</span>
     </div>
 {% endblock %}

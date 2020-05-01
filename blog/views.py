@@ -14,6 +14,9 @@ class CommonViewMixin:
         context.update({
             'sidebar': SideBar.get_all()
         })
+        context.update({
+            'link_list': Link.objects.filter(status=Link.STATUS_NORMAL)
+        })
         context.update(Category.get_navs())
         print(context)
         return context
@@ -45,6 +48,9 @@ class CategoryView(IndexView):
 class TagView(IndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        print(self.kwargs)
+
         tag_id = self.kwargs.get('tag_id')
         tag = get_object_or_404(Tag, pk=tag_id)
         context.update(
@@ -60,12 +66,22 @@ class TagView(IndexView):
         # print(queryset)
         return queryset.filter(tags__id=tag_id)
 
-
+from comment.forms import CommentForm
+from comment.models import Comment
 class PostDetailView(CommonViewMixin, DetailView):
     queryset = Post.latest_posts()
     template_name = 'blog/detail.html'
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context.update(
+            {
+                'comment_form':CommentForm,
+                'comment_list':Comment.get_by_target(self.request.path)
+             }
+        )
+        return context
 
 from django.db.models import Q
 class SearchView(IndexView):
@@ -89,6 +105,14 @@ class AuthorView(IndexView):
         queryset=super().get_queryset()
         author_id=self.kwargs.get('author_id')
         return queryset.filter(owner_id=author_id)
+
+class LinkView(CommonViewMixin,ListView):
+    queryset = Link.objects.filter(status=Link.STATUS_NORMAL)
+    template_name = 'config/links.html'
+    context_object_name = 'link_list'
+
+
+
 # 函数视图
 def post_list(request, category_id=None, tag_id=None):
     tag = None
