@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.db import models
 from django.contrib.auth.models import User
-
+import mistune
 
 # Create your models here.
 class Category(models.Model):
@@ -56,7 +56,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "标签"
 
-
+from django.utils.functional import cached_property
 class Post(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
@@ -76,14 +76,26 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name='标签')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
 
+    content_html=models.TextField(verbose_name='正文html代码',blank=True,editable=False)
+
     pv=models.PositiveIntegerField(default=1)
     uv=models.PositiveIntegerField(default=1)
+
+    def save(self, *args,**kwargs):
+        self.content_html=mistune.markdown(self.content)
+        super().save(*args,**kwargs)
+    @cached_property
+    def tag(self):
+        return ','.join(self.tags.values_list('name',flat=True))
+
     @classmethod
     def hot_post(cls):
         return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv').only('title','id')
     @classmethod
     def latest_posts(cls):
         queryset=cls.objects.filter(status=Post.STATUS_NORMAL)
+        # queryset=cls.objects.all()[:3]
+        # print('bbbbbbbbbbbbbbbbbb',queryset)
         return queryset
 
     @staticmethod

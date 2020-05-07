@@ -406,449 +406,453 @@ permission_id</ColNames>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="97" parent="13" name="blog_post_category_id_c326dbf8">
+    <column id="97" parent="13" name="pv">
+      <Position>10</Position>
+      <DataType>integer unsigned|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="98" parent="13" name="uv">
+      <Position>11</Position>
+      <DataType>integer unsigned|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="99" parent="13" name="content_html">
+      <Position>12</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="100" parent="13" name="blog_post_category_id_c326dbf8">
       <ColNames>category_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <index id="98" parent="13" name="blog_post_owner_id_ff7c9277">
+    <index id="101" parent="13" name="blog_post_owner_id_ff7c9277">
       <ColNames>owner_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="99" parent="13">
+    <key id="102" parent="13">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="100" parent="13">
+    <foreign-key id="103" parent="13">
       <ColNames>category_id</ColNames>
       <RefTableName>blog_category</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <foreign-key id="101" parent="13">
+    <foreign-key id="104" parent="13">
       <ColNames>owner_id</ColNames>
       <RefTableName>auth_user</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <column id="102" parent="14" name="id">
+    <column id="105" parent="14" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="103" parent="14" name="post_id">
+    <column id="106" parent="14" name="post_id">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="104" parent="14" name="tag_id">
+    <column id="107" parent="14" name="tag_id">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="105" parent="14" name="blog_post_tags_post_id_tag_id_4925ec37_uniq">
+    <index id="108" parent="14" name="blog_post_tags_post_id_tag_id_4925ec37_uniq">
       <ColNames>post_id
 tag_id</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <index id="106" parent="14" name="blog_post_tags_post_id_a1c71c8a">
+    <index id="109" parent="14" name="blog_post_tags_post_id_a1c71c8a">
       <ColNames>post_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <index id="107" parent="14" name="blog_post_tags_tag_id_0875c551">
+    <index id="110" parent="14" name="blog_post_tags_tag_id_0875c551">
       <ColNames>tag_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="108" parent="14">
+    <key id="111" parent="14">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="109" parent="14">
+    <foreign-key id="112" parent="14">
       <ColNames>post_id</ColNames>
       <RefTableName>blog_post</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <foreign-key id="110" parent="14">
+    <foreign-key id="113" parent="14">
       <ColNames>tag_id</ColNames>
       <RefTableName>blog_tag</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <column id="111" parent="15" name="id">
+    <column id="114" parent="15" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="112" parent="15" name="name">
+    <column id="115" parent="15" name="name">
       <Position>2</Position>
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="113" parent="15" name="status">
+    <column id="116" parent="15" name="status">
       <Position>3</Position>
       <DataType>integer unsigned|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="114" parent="15" name="created_time">
+    <column id="117" parent="15" name="created_time">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="115" parent="15" name="owner_id">
+    <column id="118" parent="15" name="owner_id">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="116" parent="15" name="blog_tag_owner_id_3c8290ca">
+    <index id="119" parent="15" name="blog_tag_owner_id_3c8290ca">
       <ColNames>owner_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="117" parent="15">
+    <key id="120" parent="15">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="118" parent="15">
+    <foreign-key id="121" parent="15">
       <ColNames>owner_id</ColNames>
       <RefTableName>auth_user</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <column id="119" parent="16" name="id">
+    <column id="122" parent="16" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="120" parent="16" name="nickname">
+    <column id="123" parent="16" name="nickname">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="121" parent="16" name="email">
+    <column id="124" parent="16" name="email">
       <Position>3</Position>
       <DataType>varchar(254)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="122" parent="16" name="website">
+    <column id="125" parent="16" name="website">
       <Position>4</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="123" parent="16" name="content">
+    <column id="126" parent="16" name="content">
       <Position>5</Position>
       <DataType>varchar(2000)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="124" parent="16" name="created_time">
+    <column id="127" parent="16" name="created_time">
       <Position>6</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="125" parent="16" name="status">
+    <column id="128" parent="16" name="status">
       <Position>7</Position>
       <DataType>integer unsigned|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="126" parent="16" name="target_id">
+    <column id="129" parent="16" name="target">
       <Position>8</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="127" parent="16" name="comment_comment_target_id_b37fe95c">
-      <ColNames>target_id</ColNames>
-      <ColumnCollations></ColumnCollations>
-    </index>
-    <key id="128" parent="16">
+    <key id="130" parent="16">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="129" parent="16">
-      <ColNames>target_id</ColNames>
-      <RefTableName>blog_post</RefTableName>
-      <RefColNames>id</RefColNames>
-      <Deferrable>1</Deferrable>
-      <InitiallyDeferred>1</InitiallyDeferred>
-    </foreign-key>
-    <column id="130" parent="17" name="id">
+    <column id="131" parent="17" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="131" parent="17" name="title">
+    <column id="132" parent="17" name="title">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="132" parent="17" name="href">
+    <column id="133" parent="17" name="href">
       <Position>3</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="133" parent="17" name="status">
+    <column id="134" parent="17" name="status">
       <Position>4</Position>
       <DataType>integer unsigned|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="134" parent="17" name="created_time">
+    <column id="135" parent="17" name="created_time">
       <Position>5</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="135" parent="17" name="weight">
+    <column id="136" parent="17" name="weight">
       <Position>6</Position>
       <DataType>integer unsigned|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="136" parent="17" name="owner_id">
+    <column id="137" parent="17" name="owner_id">
       <Position>7</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="137" parent="17" name="config_link_owner_id_5d54ab6d">
+    <index id="138" parent="17" name="config_link_owner_id_5d54ab6d">
       <ColNames>owner_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="138" parent="17">
+    <key id="139" parent="17">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="139" parent="17">
+    <foreign-key id="140" parent="17">
       <ColNames>owner_id</ColNames>
       <RefTableName>auth_user</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <column id="140" parent="18" name="id">
+    <column id="141" parent="18" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="141" parent="18" name="title">
+    <column id="142" parent="18" name="title">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="142" parent="18" name="display_type">
+    <column id="143" parent="18" name="display_type">
       <Position>3</Position>
       <DataType>integer unsigned|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="143" parent="18" name="content">
+    <column id="144" parent="18" name="content">
       <Position>4</Position>
       <DataType>varchar(500)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="144" parent="18" name="status">
+    <column id="145" parent="18" name="status">
       <Position>5</Position>
       <DataType>integer unsigned|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="145" parent="18" name="created_time">
+    <column id="146" parent="18" name="created_time">
       <Position>6</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="146" parent="18" name="owner_id">
+    <column id="147" parent="18" name="owner_id">
       <Position>7</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="147" parent="18" name="config_sidebar_owner_id_29edf5c5">
+    <index id="148" parent="18" name="config_sidebar_owner_id_29edf5c5">
       <ColNames>owner_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="148" parent="18">
+    <key id="149" parent="18">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="149" parent="18">
+    <foreign-key id="150" parent="18">
       <ColNames>owner_id</ColNames>
       <RefTableName>auth_user</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <column id="150" parent="19" name="id">
+    <column id="151" parent="19" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="151" parent="19" name="object_id">
+    <column id="152" parent="19" name="object_id">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="152" parent="19" name="object_repr">
+    <column id="153" parent="19" name="object_repr">
       <Position>3</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="153" parent="19" name="action_flag">
+    <column id="154" parent="19" name="action_flag">
       <Position>4</Position>
       <DataType>smallint unsigned|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="154" parent="19" name="change_message">
+    <column id="155" parent="19" name="change_message">
       <Position>5</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="155" parent="19" name="content_type_id">
+    <column id="156" parent="19" name="content_type_id">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
     </column>
-    <column id="156" parent="19" name="user_id">
+    <column id="157" parent="19" name="user_id">
       <Position>7</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="157" parent="19" name="action_time">
+    <column id="158" parent="19" name="action_time">
       <Position>8</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="158" parent="19" name="django_admin_log_content_type_id_c4bce8eb">
+    <index id="159" parent="19" name="django_admin_log_content_type_id_c4bce8eb">
       <ColNames>content_type_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <index id="159" parent="19" name="django_admin_log_user_id_c564eba6">
+    <index id="160" parent="19" name="django_admin_log_user_id_c564eba6">
       <ColNames>user_id</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="160" parent="19">
+    <key id="161" parent="19">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="161" parent="19">
+    <foreign-key id="162" parent="19">
       <ColNames>content_type_id</ColNames>
       <RefTableName>django_content_type</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <foreign-key id="162" parent="19">
+    <foreign-key id="163" parent="19">
       <ColNames>user_id</ColNames>
       <RefTableName>auth_user</RefTableName>
       <RefColNames>id</RefColNames>
       <Deferrable>1</Deferrable>
       <InitiallyDeferred>1</InitiallyDeferred>
     </foreign-key>
-    <column id="163" parent="20" name="id">
+    <column id="164" parent="20" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="164" parent="20" name="app_label">
+    <column id="165" parent="20" name="app_label">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="165" parent="20" name="model">
+    <column id="166" parent="20" name="model">
       <Position>3</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="166" parent="20" name="django_content_type_app_label_model_76bd3d3b_uniq">
+    <index id="167" parent="20" name="django_content_type_app_label_model_76bd3d3b_uniq">
       <ColNames>app_label
 model</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="167" parent="20">
+    <key id="168" parent="20">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="168" parent="21" name="id">
+    <column id="169" parent="21" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="169" parent="21" name="app">
+    <column id="170" parent="21" name="app">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="170" parent="21" name="name">
+    <column id="171" parent="21" name="name">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="171" parent="21" name="applied">
+    <column id="172" parent="21" name="applied">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="172" parent="21">
+    <key id="173" parent="21">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="173" parent="22" name="session_key">
+    <column id="174" parent="22" name="session_key">
       <Position>1</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="174" parent="22" name="session_data">
+    <column id="175" parent="22" name="session_data">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="175" parent="22" name="expire_date">
+    <column id="176" parent="22" name="expire_date">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="176" parent="22" name="sqlite_autoindex_django_session_1">
+    <index id="177" parent="22" name="sqlite_autoindex_django_session_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>session_key</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <index id="177" parent="22" name="django_session_expire_date_a5c62663">
+    <index id="178" parent="22" name="django_session_expire_date_a5c62663">
       <ColNames>expire_date</ColNames>
       <ColumnCollations></ColumnCollations>
     </index>
-    <key id="178" parent="22">
+    <key id="179" parent="22">
       <ColNames>session_key</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_django_session_1</UnderlyingIndexName>
     </key>
-    <column id="179" parent="23" name="type">
+    <column id="180" parent="23" name="type">
       <Position>1</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="180" parent="23" name="name">
+    <column id="181" parent="23" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="181" parent="23" name="tbl_name">
+    <column id="182" parent="23" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="182" parent="23" name="rootpage">
+    <column id="183" parent="23" name="rootpage">
       <Position>4</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="183" parent="23" name="sql">
+    <column id="184" parent="23" name="sql">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="184" parent="24" name="name">
+    <column id="185" parent="24" name="name">
       <Position>1</Position>
     </column>
-    <column id="185" parent="24" name="seq">
+    <column id="186" parent="24" name="seq">
       <Position>2</Position>
     </column>
   </database-model>

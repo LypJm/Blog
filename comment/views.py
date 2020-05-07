@@ -13,7 +13,7 @@ class CommentView(TemplateView):
             instance.target=target
             instance.save()
             succeed=True
-            return redirect(target)
+            # return redirect(target)
         else:
             succeed=False
         context={

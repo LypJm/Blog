@@ -38,24 +38,27 @@ class SideBar(models.Model):
             result=self.content
         elif self.display_type==self.DISPLAY_LATEST:
             context={
-                'posts':Post.latest_posts()
+                'posts':Post.latest_posts()[:3]
             }
             result=render_to_string('config/blocks/sidebar_posts.html',context=context)
         elif self.display_type==self.DISPLAY_HOT:
             context={
-                'posts':Post.hot_post()
+                'posts':Post.hot_post()[:3]
             }
             result=render_to_string('config/blocks/sidebar_posts.html',context=context)
         elif self.display_type==self.DISPLAY_COMMENT:
             context={
-                'comments':Comment.objects.filter(status=Comment.STATUS_NORMAL)
+                'comments':Comment.objects.filter(status=Comment.STATUS_NORMAL)[:3]
             }
             result=render_to_string('config/blocks/sidebar_comment.html',context=context)
         return result
 
     @classmethod
     def get_all(cls):
-        return cls.objects.filter(status=SideBar.STATUS_SHOW)
+        query=cls.objects.filter(status=SideBar.STATUS_SHOW)
+        # print('aaaaaaaaaaaaaa',query)
+        return query
+
     def __str__(self):
         return self.title
     class Meta:

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Post, Category, Tag
 from config.models import SideBar, Link
 from django.views.generic import View, ListView, DetailView
+from django.db.models import F
 
 
 # Create your views here.
@@ -18,12 +19,12 @@ class CommonViewMixin:
             'link_list': Link.objects.filter(status=Link.STATUS_NORMAL)
         })
         context.update(Category.get_navs())
-        print(context)
+        # print(context)
         return context
 
 class IndexView(CommonViewMixin, ListView):
     queryset = Post.latest_posts()
-    paginate_by = 3
+    paginate_by = 5
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
 
@@ -46,7 +47,7 @@ class TagView(IndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        print(self.kwargs)
+        # print(self.kwargs)
 
         tag_id = self.kwargs.get('tag_id')
         tag = get_object_or_404(Tag, pk=tag_id)
@@ -65,20 +66,47 @@ class TagView(IndexView):
 
 from comment.forms import CommentForm
 from comment.models import Comment
+from django.core.cache import cache
+from datetime import date
+
 class PostDetailView(CommonViewMixin, DetailView):
     queryset = Post.latest_posts()
     template_name = 'blog/detail.html'
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'
-    def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
-        context.update(
-            {
-                'comment_form':CommentForm,
-                'comment_list':Comment.get_by_target(self.request.path)
-             }
-        )
-        return context
+    def get(self, request, *args, **kwargs):
+        response=super().get(request,*args,**kwargs)
+        self.handle_visited()
+        return response
+
+    def handle_visited(self):
+        increase_pv=False
+        increase_uv=False
+        uid=self.request.uid
+        pv_key='pv:%s:%s'%(uid,self.request.path)
+        uv_key='uv:%s:%s:%s'%(uid,str(date.today()),self.request.path)
+        if not cache.get(pv_key):
+            increase_pv=True
+            cache.set(pv_key,1,1*60)
+        if not cache.get(uv_key):
+            increase_uv=True
+            cache.set(uv_key,1,24*60*60)
+        if increase_pv and increase_uv:
+            Post.objects.filter(pk=self.object.id).update(pv=F('pv')+1,uv=F('uv')+1)
+        elif increase_pv:
+            Post.objects.filter(pk=self.object.id).update(pv=F('pv')+1)
+        elif increase_uv:
+            Post.objects.filter(pk=self.object.id).update(uv=F('uv')+1)
+
+    # def get_context_data(self, **kwargs):
+    #     context=super().get_context_data(**kwargs)
+    #     context.update(
+    #         {
+    #             'comment_form':CommentForm,
+    #             'comment_list':Comment.get_by_target(self.request.path)
+    #          }
+    #     )
+    #     return context
 
 from django.db.models import Q
 class SearchView(IndexView):

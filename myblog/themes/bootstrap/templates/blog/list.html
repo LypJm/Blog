@@ -22,6 +22,7 @@
                             无
                     {% endfor %}
                 </span>
+                <span class="card-link">阅读量：{{ post.pv }}</span>
                 <p class="card-text">{{ post.description }} <a href="{% url 'post' post_id=post.id %}">完整内容</a></p>
             </div>
         </div>

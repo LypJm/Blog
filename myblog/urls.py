@@ -19,6 +19,9 @@ from blog.views import post_detail, post_list,LinkView,IndexView,CategoryView,Ta
 from comment.views import CommentView
 from config.views import link
 from .custom_site import custom_site
+from django.contrib.sitemaps import views as sitemap_views
+from blog.rss import LatestPostFeed
+from blog.sitemap import PostSitemap
 
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
@@ -31,6 +34,8 @@ urlpatterns = [
     path('links/',LinkView.as_view(),name='link'),
     path('comment/',CommentView.as_view(),name='comment'),
 
+    path(r'rss|feed/',LatestPostFeed(),name='rss'),
+    path(r'sitemap.xml',sitemap_views.sitemap,{'sitemaps':{'posts':PostSitemap}}),
     # path('superadmin/',admin.site.urls),
     path('admin/', custom_site.urls),
 ]
