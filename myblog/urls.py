@@ -22,6 +22,7 @@ from .custom_site import custom_site
 from django.contrib.sitemaps import views as sitemap_views
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
+import xadmin
 
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
@@ -36,6 +37,7 @@ urlpatterns = [
 
     path(r'rss|feed/',LatestPostFeed(),name='rss'),
     path(r'sitemap.xml',sitemap_views.sitemap,{'sitemaps':{'posts':PostSitemap}}),
+    path('admin/',xadmin.site.urls,name='xadmin'),
     # path('superadmin/',admin.site.urls),
-    path('admin/', custom_site.urls),
+    # path('admin/', custom_site.urls),
 ]

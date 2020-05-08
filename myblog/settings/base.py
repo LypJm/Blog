@@ -26,9 +26,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+XADMIN_TITLE='L-Blog'
+XADMIN_FOOTER_TITLE='power by LYP'
+
 # Application definition
 
 INSTALLED_APPS = [
+    'xadmin',
+    'crispy_forms',
     'myblog',
     'blog',
     'config',

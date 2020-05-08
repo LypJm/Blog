@@ -57,6 +57,7 @@ class Tag(models.Model):
         verbose_name = verbose_name_plural = "标签"
 
 from django.utils.functional import cached_property
+
 class Post(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0

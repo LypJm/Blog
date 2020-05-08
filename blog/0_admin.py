@@ -10,10 +10,11 @@ from .adminforms import PostAdminForm
 from myblog.custom_site import custom_site
 
 # Register your models here.
-#查看日志的页面
-@admin.register(LogEntry,site=custom_site)
-class LogAdmin(admin.ModelAdmin):
-    list_display = ["object_repr",'object_id','action_flag','user','change_message']
+
+#查看日志的页面 admin组件才使用，而xadmin中已配置好展示逻辑，所以不用以下代码
+# @admin.register(LogEntry,site=custom_site)
+# class LogAdmin(admin.ModelAdmin):
+#     list_display = ["object_repr",'object_id','action_flag','user','change_message']
 
 # 在同一页面编辑关联数据
 class PostInline(admin.TabularInline):
