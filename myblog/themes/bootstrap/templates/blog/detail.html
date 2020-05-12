@@ -17,6 +17,7 @@
             <hr/>
             <p class="card-text">
                 {% autoescape off %}
+{#                    {{ post.content }}#}
                     {{ post.content_html }}
                 {% endautoescape %}
             </p>

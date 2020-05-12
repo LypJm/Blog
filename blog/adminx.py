@@ -17,15 +17,6 @@ import xadmin
 
 # Register your models here.
 
-# 在同一页面编辑关联数据
-class PostInline():
-    form_layout=(
-        Container(
-            Row('title','description','owner'),
-        )
-    )
-    extra = 1
-    model = Post
 
 class CategoryOwnerFilter(RelatedFieldListFilter):
     @classmethod
@@ -75,10 +66,25 @@ class PostAdmin(BaseAdmin):
     #     media.add_js(['https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.js',])
     #     return media
 
+# 在同一页面编辑关联数据
+class PostInline():
+    form_layout=(
+        Container(
+            Row('title','description','owner'),
+        )
+    )
+    extra = 1
+    model = Post
+
 @xadmin.sites.register(Category)
 class CategoryAdmin(BaseAdmin):
     list_display = ('name', 'status', 'owner', 'is_nav', 'created_time', 'post_count')
     fields = ('name', 'status', 'is_nav')
+    # form_layout=(
+    #     Fieldset('基础配置',
+    #              'name',
+    #              Row('status','is_nav')
+    # ))
     inlines = [PostInline, ]
 
     def post_count(self, obj):  # 自定函数，固定的参数，当前行对象obj

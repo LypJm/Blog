@@ -29,9 +29,24 @@ ALLOWED_HOSTS = []
 XADMIN_TITLE='L-Blog'
 XADMIN_FOOTER_TITLE='power by LYP'
 
+CKEDITOR_CONFIGS={
+    'default':{
+        'toolbar':'full',
+        'height':300,
+        'width':800,
+        'tabSpaces':4,
+        'extraPlugins':'codesnippet'
+    }
+}
+
 # Application definition
 
 INSTALLED_APPS = [
+    'debug_toolbar',
+    'ckeditor',
+    'ckeditor_uploader',
+    'dal',
+    'dal_select2',
     'xadmin',
     'crispy_forms',
     'myblog',
@@ -47,6 +62,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'blog.middleware.user_id.UserIDMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,3 +139,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+CKEDITOR_UPLOAD_PATH='article_images'
+
+DEFAULT_FILE_STORAGE='myblog.storage.WatermarkStorage'

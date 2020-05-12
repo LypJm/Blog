@@ -77,13 +77,18 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name='标签')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
 
+    is_md=models.BooleanField(default=False,verbose_name='markdown语法') # 此字段暂时没有用到
+
     content_html=models.TextField(verbose_name='正文html代码',blank=True,editable=False)
 
     pv=models.PositiveIntegerField(default=1)
     uv=models.PositiveIntegerField(default=1)
 
     def save(self, *args,**kwargs):
-        self.content_html=mistune.markdown(self.content)
+        if self.is_md:
+            self.content_html=mistune.markdown(self.content)
+        else:
+            self.content_html=self.content
         super().save(*args,**kwargs)
     @cached_property
     def tag(self):
