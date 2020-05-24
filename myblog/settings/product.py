@@ -2,6 +2,8 @@ from .base import * #NOQA
 
 DEBUG=False
 
+ALLOWED_HOST=['196.168.248.128']
+
 DATABASES={
     'default':{
         'ENGINE':'django.db.backends.mysql',
